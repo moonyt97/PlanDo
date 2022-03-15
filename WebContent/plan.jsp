@@ -14,15 +14,29 @@
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
-
 <title>Plan</title>
+<style type="text/css">
+.fade-in-box {
+  animation: fadein 3s;
+  -webkit-animation: fadein 3s; /* Safari and Chrome */
+}
+@keyframes fadein {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+</style>
 </head>
-<body class="container" style="height: 100vh;">
-	<div class="h-100 row align-items-center">
-		<div class="col">
-			<div class="text-center fs-2 fw-bold mb-5">${userName }님의계획을
-				실행하세요</div>
 
+<body class="container" style="height: 100vh;">
+	<a href="index.jsp" class="btn btn-outline-secondary mt-2">이전으로</a>
+	<div class="h-100 row align-items-center fade-in-box container">
+		<div class="col">
+			<div class="text-center fs-2 fw-bold mb-5">${userName }님의 계획을
+				실행하세요</div>
 			<form action="PlanInsertServlet.do"
 				class="row g-3 justify-content-center" method="post">
 				<div class="col-auto fs-5">계획</div>
@@ -31,8 +45,11 @@
 						placeholder="계획을 입력하세요">
 				</div>
 				<div class="col-auto">
+					<input type="date" class="form-control" name="dday">
+				</div>
+				<div class="col-auto">
 					<input type="hidden" name="userName" value="${userName }">
-					<input type="submit" value="등록" class="btn btn-secondary mb-3">
+					<input type="submit" value="등록" class="btn btn-outline-secondary mb-3">
 				</div>
 			</form>
 			
@@ -41,6 +58,15 @@
 				<c:forEach var="bean" items="${v }">
 					<div class="text-center mb-1 ">
 						<span class="mx-2"> ${number}.</span><span class="mx-2">${bean.content }</span> <span class="mx-2">${bean.date }</span>
+						<span class="mx-2">
+							<c:if test="${bean.dday >= 0 }">
+							D-${bean.dday }
+							</c:if>
+							<c:if test="${bean.dday < 0 }">
+							D+${-bean.dday }
+							</c:if>
+															
+						</span>
 						 <input type="hidden" name="no" value="${bean.no }"> 
 						 <input type="submit" class="btn btn-outline-secondary" value="삭제">
 					</div>
@@ -67,22 +93,19 @@
 				</c:if>
 	
 				<c:if test="${startPage>10 }">
-					<a href = "PlanListServlet.do?pageNum=${startPage-10 }">[이전]</a>
+					<a href = "PlanListServlet.do?pageNum=${startPage-10 }" class="btn btn-outline-secondary">[이전]</a>
 				</c:if>
 				
 				<c:forEach var="i" begin="${startPage }" end="${endPage }">
-					<a href="PlanListServlet.do?pageNum=${i}">${i }</a>
+					<a href="PlanListServlet.do?pageNum=${i}" class="btn btn-outline-secondary">${i }</a>
 				</c:forEach>
 				<c:if test="${endPage<pageCount }">
-					<a href = "PlanListServlet.do?pageNum=${startPage+10 }">[다음]</a>
+					<a href = "PlanListServlet.do?pageNum=${startPage+10 }" class="btn btn-outline-secondary">[다음]</a>
 				</c:if>
 			</c:if>
-			
 			</div>
-			
 		</div>
 	</div>
-
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"

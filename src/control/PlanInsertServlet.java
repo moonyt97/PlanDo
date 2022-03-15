@@ -1,6 +1,9 @@
 package control;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,15 +28,13 @@ public class PlanInsertServlet extends HttpServlet {
 		
 		String userName = request.getParameter("userName");
 		String content = request.getParameter("content");
-		
+		String dday = request.getParameter("dday");
 		PlanDAO pdao = new PlanDAO();
-		pdao.insertPlan(userName,content);
-		
+		pdao.insertPlan(userName,content,dday);
 		RequestDispatcher dis = request.getRequestDispatcher("PlanListServlet.do");
 		dis.forward(request, response);
 		
 	}
 	
-
 
 }

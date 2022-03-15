@@ -15,17 +15,30 @@
 	crossorigin="anonymous">
 
 <title>Login</title>
+<style type="text/css">
+.fade-in-box {
+  animation: fadein 3s;
+  animation: fadein 3s; /* Safari and Chrome */
+}
+@keyframes fadein {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+</style>
 </head>
-<body class="container" style="height: 100vh;">
+<body  style="height: 100vh;" class="container">
 	<c:if test="${result==0 }">
 		<script type="text/javascript">
 			alert("등록된 이름이 없습니다.");
 		</script>
 	</c:if>
-	<div class="h-100 row align-items-center">
+	<div class="h-100 row align-items-center fade-in-box">
 		<div class="col">
 			<div class="text-center fs-2 fw-bold mb-5 ">당신의 계획을 실행하세요</div>
-			
 			<form action="LoginServlet.do" method="post" class="row g-3 justify-content-center">
 				<div class="col-auto fs-5">
 					이름
@@ -42,7 +55,6 @@
 			</div>
 		</div>
 	</div>
-
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"

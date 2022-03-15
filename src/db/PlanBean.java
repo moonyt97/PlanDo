@@ -8,6 +8,7 @@ public class PlanBean {
 	private String content;
 	private Date date;
 	private String userName;
+	private String dday;
 	public int getNo() {
 		return no;
 	}
@@ -32,8 +33,12 @@ public class PlanBean {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-
-	
+	public String getDday() {
+		return dday;
+	}
+	public void setDday(String dday) {
+		this.dday = dday;
+	}
 	
 	
 }

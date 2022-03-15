@@ -3,6 +3,7 @@ package db;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Date;
 import java.util.Vector;
 
 import javax.naming.Context;
@@ -43,6 +44,7 @@ public class PlanDAO {
 				bean.setContent(rs.getString(2));
 				bean.setDate(rs.getDate(3));
 				bean.setUserName(rs.getString(4));
+				bean.setDday(rs.getString(5));
 				v.add(bean);
 			}
 			con.close();
@@ -52,13 +54,14 @@ public class PlanDAO {
 		
 		return v;
 	}
-	public void insertPlan(String userName, String content){
+	public void insertPlan(String userName, String content,String dday){
 		getCon();
-		String sql = "INSERT INTO TBL_LIST VALUES(SEQ_TBL_PLAN.Nextval,?,SYSDATE,?)";
+		String sql = "INSERT INTO TBL_LIST VALUES(SEQ_TBL_PLAN.Nextval,?,SYSDATE,?,-(TO_DATE(TO_CHAR(SYSDATE,'YYYYMMDD'))-TO_DATE(?)))";
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, content);
 			pstmt.setString(2, userName);
+			pstmt.setString(3,dday);
 			pstmt.executeUpdate();
 			con.close();
 		} catch (Exception e) {
